@@ -1,0 +1,1461 @@
+/* ============================= */
+/* CONFIGURAÇÕES GERAIS */
+/* ============================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+
+    min-height: 100vh;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f7dbe3,
+            #f2b6c8,
+            #c72d61
+        );
+
+}
+
+
+/* ============================= */
+/* PÁGINA */
+/* ============================= */
+
+.pagina {
+
+    min-height: 100vh;
+
+    padding-bottom: 50px;
+
+}
+
+
+/* ============================= */
+/* CABEÇALHO */
+/* ============================= */
+
+.cabecalho {
+
+    padding-top: 25px;
+
+    padding-bottom: 25px;
+
+}
+
+
+.cabecalho-conteudo {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    color: white;
+
+}
+
+
+.icone-flor {
+
+    font-size: 38px;
+
+}
+
+
+.cabecalho h1 {
+
+    font-size: 28px;
+
+    font-weight: bold;
+
+    margin-bottom: 5px;
+
+    letter-spacing: 1px;
+
+}
+
+
+.cabecalho p {
+
+    font-size: 15px;
+
+    margin: 0;
+
+    opacity: 0.9;
+
+}
+
+
+/* ============================= */
+/* CONTEÚDO PRINCIPAL */
+/* ============================= */
+
+.conteudo-principal {
+
+    max-width: 1000px;
+
+}
+
+
+/* ============================= */
+/* PAINEL PRINCIPAL */
+/* ============================= */
+
+.painel-quantidades {
+
+    background-color: rgba(255, 255, 255, 0.95);
+
+    border-radius: 20px;
+
+    padding: 25px;
+
+    box-shadow:
+        0 15px 40px rgba(80, 0, 30, 0.20);
+
+}
+
+
+/* ============================= */
+/* TÍTULO DO PAINEL */
+/* ============================= */
+
+.titulo-painel {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 20px;
+
+    color: #9d1f4d;
+
+}
+
+
+.titulo-painel h2 {
+
+    font-size: 20px;
+
+    font-weight: bold;
+
+    margin: 0;
+
+}
+
+
+.icone-caixa {
+
+    font-size: 25px;
+
+}
+
+
+/* ============================= */
+/* CARD DOS ANDARES */
+/* ============================= */
+
+.card-andar {
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #f8edf1
+        );
+
+    border-radius: 16px;
+
+    padding: 18px 12px;
+
+    min-height: 230px;
+
+    border: 1px solid #f0d4dd;
+
+    box-shadow:
+        0 5px 15px rgba(130, 30, 70, 0.10);
+
+    transition: 0.3s;
+
+}
+
+
+.card-andar:hover {
+
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 10px 25px rgba(130, 30, 70, 0.18);
+
+}
+
+
+/* ============================= */
+/* NÚMERO DO ANDAR */
+/* ============================= */
+
+.numero-andar {
+
+    width: 42px;
+
+    height: 42px;
+
+    margin: 0 auto 10px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #e8487b,
+            #a9154b
+        );
+
+    color: white;
+
+    border-radius: 50%;
+
+    font-weight: bold;
+
+    font-size: 17px;
+
+}
+
+
+/* ============================= */
+/* NOME DO ANDAR */
+/* ============================= */
+
+.andar-nome {
+
+    color: #6f2744;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    min-height: 35px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+}
+
+
+/* ============================= */
+/* LINHA */
+/* ============================= */
+
+.linha-card {
+
+    width: 50%;
+
+    height: 2px;
+
+    margin: 8px auto;
+
+    background-color: #f0c3d2;
+
+}
+
+
+/* ============================= */
+/* QUANTIDADE */
+/* ============================= */
+
+.quantidade-numero {
+
+    font-size: 34px;
+
+    font-weight: bold;
+
+    color: #b21e53;
+
+    line-height: 1;
+
+}
+
+
+/* ============================= */
+/* TEXTO DISPONÍVEIS */
+/* ============================= */
+
+.texto-disponivel {
+
+    color: #777;
+
+    font-size: 11px;
+
+}
+
+
+/* ============================= */
+/* BOTÃO ACESSAR */
+/* ============================= */
+
+.botao-acessar {
+
+    display: inline-block;
+
+    margin-top: 10px;
+
+    padding: 7px 22px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #e53270,
+            #a70d43
+        );
+
+    color: white;
+
+    text-decoration: none;
+
+    border-radius: 20px;
+
+    font-size: 11px;
+
+    font-weight: bold;
+
+    transition: 0.3s;
+
+}
+
+
+.botao-acessar:hover {
+
+    background:
+        linear-gradient(
+            135deg,
+            #a70d43,
+            #7e0732
+        );
+
+    color: white;
+
+    transform: scale(1.05);
+
+}
+
+
+/* ============================= */
+/* ÁREA ADMINISTRADOR */
+/* ============================= */
+
+.area-administrador {
+
+    text-align: center;
+
+    margin-top: 20px;
+
+}
+
+
+/* ============================= */
+/* BOTÃO ADMINISTRADOR */
+/* ============================= */
+
+.botao-administrador {
+
+    display: inline-block;
+
+    padding: 12px 35px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #c51d56,
+            #85103c
+        );
+
+    color: white;
+
+    text-decoration: none;
+
+    border-radius: 25px;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    box-shadow:
+        0 5px 15px rgba(100, 0, 40, 0.25);
+
+    transition: 0.3s;
+
+}
+
+
+.botao-administrador:hover {
+
+    color: white;
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 8px 20px rgba(100, 0, 40, 0.35);
+
+}
+
+
+/* ============================= */
+/* RESPONSIVIDADE */
+/* ============================= */
+
+@media (max-width: 768px) {
+
+    .cabecalho {
+
+        padding-top: 20px;
+
+    }
+
+
+    .cabecalho h1 {
+
+        font-size: 21px;
+
+    }
+
+
+    .cabecalho p {
+
+        font-size: 12px;
+
+    }
+
+
+    .icone-flor {
+
+        font-size: 28px;
+
+    }
+
+
+    .painel-quantidades {
+
+        padding: 15px;
+
+    }
+
+
+    .titulo-painel h2 {
+
+        font-size: 16px;
+
+    }
+
+
+    .card-andar {
+
+        min-height: 210px;
+
+        padding: 15px 8px;
+
+    }
+
+
+    .andar-nome {
+
+        font-size: 11px;
+
+    }
+
+
+    .quantidade-numero {
+
+        font-size: 28px;
+
+    }
+
+}
+
+
+/* ========================================= */
+/* PÁGINAS DE CONTROLE DOS ANDARES */
+/* ========================================= */
+
+.painel-controle {
+
+    max-width: 700px;
+
+    margin: auto;
+
+}
+
+
+.card-controle {
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #f8edf1
+        );
+
+    border: 1px solid #f0d4dd;
+
+    border-radius: 20px;
+
+    padding: 35px 30px;
+
+    box-shadow:
+
+        0 10px 30px rgba(130, 30, 70, 0.12);
+
+}
+
+
+/* ============================= */
+/* ÍCONE DO LOCAL */
+/* ============================= */
+
+.icone-local {
+
+    width: 70px;
+
+    height: 70px;
+
+    margin: 0 auto 15px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #e8487b,
+            #a9154b
+        );
+
+}
+
+
+.icone-local i {
+
+    font-size: 32px;
+
+    color: white;
+
+}
+
+
+/* ============================= */
+/* NOME DO LOCAL */
+/* ============================= */
+
+.nome-local {
+
+    color: #6f2744;
+
+    font-size: 24px;
+
+    font-weight: bold;
+
+    margin-bottom: 5px;
+
+}
+
+
+.descricao-local {
+
+    color: #888;
+
+    font-size: 14px;
+
+}
+
+
+/* ============================= */
+/* QUANTIDADE ATUAL */
+/* ============================= */
+
+.quantidade-atual {
+
+    font-size: 55px;
+
+    font-weight: bold;
+
+    color: #b21e53;
+
+    margin-top: 15px;
+
+    line-height: 1;
+
+}
+
+
+.label-disponivel {
+
+    color: #777;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    letter-spacing: 1px;
+
+}
+
+
+/* ============================= */
+/* FORMULÁRIO */
+/* ============================= */
+
+.form-controle {
+
+    margin-top: 25px;
+
+}
+
+
+.label-quantidade {
+
+    display: block;
+
+    text-align: left;
+
+    color: #6f2744;
+
+    font-weight: bold;
+
+    margin-bottom: 8px;
+
+}
+
+
+.input-retirada {
+
+    margin-bottom: 20px;
+
+}
+
+
+.input-retirada .input-group-text {
+
+    background-color: #f8edf1;
+
+    border-color: #f0d4dd;
+
+    color: #b21e53;
+
+}
+
+
+.input-retirada .form-control {
+
+    border-color: #f0d4dd;
+
+}
+
+
+.input-retirada .form-control:focus {
+
+    border-color: #d6336c;
+
+    box-shadow:
+
+        0 0 0 0.20rem rgba(214, 51, 108, 0.15);
+
+}
+
+
+/* ============================= */
+/* BOTÃO RETIRAR */
+/* ============================= */
+
+.botao-excluir {
+
+    width: 100%;
+
+    border: none;
+
+    padding: 13px;
+
+    border-radius: 25px;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #e53270,
+            #a70d43
+        );
+
+    color: white;
+
+    font-weight: bold;
+
+    transition: 0.3s;
+
+}
+
+
+.botao-excluir:hover {
+
+    transform: translateY(-2px);
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #a70d43,
+            #7e0732
+        );
+
+}
+
+
+/* ============================= */
+/* BOTÃO VOLTAR */
+/* ============================= */
+
+.botao-voltar {
+
+    display: inline-block;
+
+    padding: 12px 30px;
+
+    border-radius: 25px;
+
+    background: rgba(255, 255, 255, 0.9);
+
+    color: #9d1f4d;
+
+    text-decoration: none;
+
+    font-weight: bold;
+
+    transition: 0.3s;
+
+}
+
+
+.botao-voltar:hover {
+
+    color: #7e0732;
+
+    transform: translateX(-3px);
+
+}
+
+
+/* ========================================= */
+/* SPLASH SCREEN */
+/* ========================================= */
+
+.splash-body {
+
+    min-height: 100vh;
+
+    margin: 0;
+
+    overflow: hidden;
+
+    position: relative;
+
+}
+
+
+.splash-container {
+
+    min-height: 100vh;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 20px;
+
+    position: relative;
+
+    z-index: 2;
+
+}
+
+
+/* ============================= */
+/* FORMAS DECORATIVAS */
+/* ============================= */
+
+.forma {
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    opacity: 0.20;
+
+    pointer-events: none;
+
+}
+
+
+.forma-1 {
+
+    width: 280px;
+
+    height: 280px;
+
+    background: #ffffff;
+
+    top: -140px;
+
+    left: -100px;
+
+}
+
+
+.forma-2 {
+
+    width: 220px;
+
+    height: 220px;
+
+    background: #ffffff;
+
+    right: -90px;
+
+    bottom: -80px;
+
+}
+
+
+.forma-3 {
+
+    width: 100px;
+
+    height: 100px;
+
+    background: #a9154b;
+
+    right: 12%;
+
+    top: 12%;
+
+}
+
+
+.forma-4 {
+
+    width: 70px;
+
+    height: 70px;
+
+    background: #ffffff;
+
+    left: 12%;
+
+    bottom: 15%;
+
+}
+
+
+/* ============================= */
+/* LOGO SENAC */
+/* ============================= */
+
+.logo-senac {
+
+    margin-bottom: 15px;
+
+}
+
+
+.logo-senac-text {
+
+    color: white;
+
+    font-size: 32px;
+
+    font-weight: bold;
+
+    letter-spacing: 1px;
+
+}
+
+
+/* ============================= */
+/* CARD DA SPLASH */
+/* ============================= */
+
+.splash-card {
+
+    width: 100%;
+
+    max-width: 480px;
+
+    padding: 30px 35px;
+
+    text-align: center;
+
+    background: rgba(255, 255, 255, 0.96);
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 15px 40px rgba(80, 0, 30, 0.20);
+
+}
+
+
+/* ============================= */
+/* DECORAÇÃO DO TÍTULO */
+/* ============================= */
+
+.decoracao-titulo {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 12px;
+
+    margin-bottom: 12px;
+
+}
+
+
+.decoracao-titulo span {
+
+    width: 55px;
+
+    height: 1px;
+
+    background: #e5b4c5;
+
+}
+
+
+.flor {
+
+    color: #c72d61;
+
+    font-size: 22px;
+
+}
+
+
+/* ============================= */
+/* TÍTULOS */
+/* ============================= */
+
+.splash-card h1 {
+
+    color: #9d1f4d;
+
+    font-size: 30px;
+
+    margin: 0 0 5px 0;
+
+    font-weight: bold;
+
+}
+
+
+.splash-card h2 {
+
+    color: #b21e53;
+
+    font-size: 16px;
+
+    margin: 0 0 15px 0;
+
+    letter-spacing: 1px;
+
+    font-weight: bold;
+
+}
+
+
+/* ============================= */
+/* DESCRIÇÃO */
+/* ============================= */
+
+.descricao {
+
+    color: #777;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+
+    margin: 0 auto 18px auto;
+
+    max-width: 390px;
+
+}
+
+
+/* ============================= */
+/* LINHA */
+/* ============================= */
+
+.linha {
+
+    width: 100%;
+
+    height: 1px;
+
+    margin: 15px 0;
+
+    background: #f0d4dd;
+
+}
+
+
+/* ============================= */
+/* STATUS */
+/* ============================= */
+
+.status-carregamento {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    font-size: 13px;
+
+    color: #777;
+
+    margin-top: 5px;
+
+}
+
+
+/* ========================================= */
+/* BOLINHAS GIRANDO */
+/* ========================================= */
+
+.loading-spinner {
+
+    width: 36px;
+
+    height: 36px;
+
+    position: relative;
+
+    margin: 15px auto 0;
+
+    animation: girarHorario 1.2s linear infinite;
+
+}
+
+
+/* ============================= */
+/* CADA BOLINHA */
+/* ============================= */
+
+.loading-spinner span {
+
+    position: absolute;
+
+    width: 6px;
+
+    height: 6px;
+
+    border-radius: 50%;
+
+    background: #c72d61;
+
+    left: 50%;
+
+    top: 50%;
+
+    transform-origin: 0 0;
+
+}
+
+
+/* ============================= */
+/* POSIÇÃO DAS BOLINHAS */
+/* ============================= */
+
+.loading-spinner span:nth-child(1) {
+
+    transform:
+        rotate(0deg)
+        translateX(13px);
+
+}
+
+
+.loading-spinner span:nth-child(2) {
+
+    transform:
+        rotate(60deg)
+        translateX(13px);
+
+}
+
+
+.loading-spinner span:nth-child(3) {
+
+    transform:
+        rotate(120deg)
+        translateX(13px);
+
+}
+
+
+.loading-spinner span:nth-child(4) {
+
+    transform:
+        rotate(180deg)
+        translateX(13px);
+
+}
+
+
+.loading-spinner span:nth-child(5) {
+
+    transform:
+        rotate(240deg)
+        translateX(13px);
+
+}
+
+
+.loading-spinner span:nth-child(6) {
+
+    transform:
+        rotate(300deg)
+        translateX(13px);
+
+}
+
+
+/* ============================= */
+/* ANIMAÇÃO HORÁRIO */
+/* ============================= */
+
+@keyframes girarHorario {
+
+    from {
+
+        transform: rotate(0deg);
+
+    }
+
+    to {
+
+        transform: rotate(360deg);
+
+    }
+
+}
+
+
+/* ============================= */
+/* RODAPÉ DA SPLASH */
+/* ============================= */
+
+.splash-footer {
+
+    margin-top: 15px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 7px;
+
+    color: white;
+
+    font-size: 12px;
+
+}
+
+
+.splash-footer i {
+
+    font-size: 14px;
+
+}
+
+
+/* ========================================= */
+/* RESPONSIVIDADE DA SPLASH */
+/* ========================================= */
+
+@media (max-width: 576px) {
+
+    .splash-container {
+
+        padding: 15px;
+
+    }
+
+
+    .logo-senac-text {
+
+        font-size: 26px;
+
+    }
+
+
+    .splash-card {
+
+        max-width: 400px;
+
+        padding: 25px 20px;
+
+    }
+
+
+    .splash-card h1 {
+
+        font-size: 26px;
+
+    }
+
+
+    .splash-card h2 {
+
+        font-size: 14px;
+
+    }
+
+
+    .descricao {
+
+        font-size: 13px;
+
+    }
+
+
+    .splash-footer {
+
+        font-size: 11px;
+
+    }
+
+}
+/* =========================================
+   ANIMAÇÃO DE ENTRADA DA SPLASH
+========================================= */
+
+.splash-card {
+    animation: entradaCard 0.9s ease-out forwards;
+}
+
+.logo-senac {
+    animation: entradaLogo 0.7s ease-out forwards;
+}
+
+.splash-footer {
+    animation: entradaRodape 1.1s ease-out forwards;
+}
+
+
+/* Card entrando suavemente de baixo */
+@keyframes entradaCard {
+
+    from {
+        opacity: 0;
+        transform: translateY(25px) scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+}
+
+
+/* Logo aparecendo suavemente */
+@keyframes entradaLogo {
+
+    from {
+        opacity: 0;
+        transform: translateY(-15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+/* Rodapé aparece por último */
+@keyframes entradaRodape {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+.mensagem-contribuicao {
+    color: #6f2744;
+    font-size: 13px;
+    line-height: 1.5;
+    max-width: 390px;
+    margin: 15px auto;
+    animation: mensagemEntrada 1.3s ease-out forwards;
+}
+
+.mensagem-contribuicao strong {
+    display: block;
+    color: #6d1332;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.mensagem-contribuicao span {
+    font-weight: bold;
+    color: #ff005d;
+}
+
+@keyframes mensagemEntrada {
+
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+.cabecalho {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.cabecalho-conteudo {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cabecalho-conteudo h1 {
+    margin: 0 auto;
+    text-align: center;
+    font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+    font-size: 28px;
+    font-weight: 600;
+    color: #8e4a70;
+    letter-spacing: 1px;
+}
+
+/* ================================
+   PÁGINA DE SUCESSO
+================================ */
+
+.icone-sucesso {
+    width: 80px;
+    height: 80px;
+
+    margin: 0 auto 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background-color: #f8d7e7;
+    color: #b85c8a;
+
+    font-size: 42px;
+}
+
+
+.icone-sucesso i {
+    line-height: 1;
+}
+
+
+.card-controle {
+    padding: 40px 30px;
+
+    border-radius: 20px;
+
+    background-color: #ffffff;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+
+.card-controle .nome-local {
+    color: #8e4a70;
+    font-weight: 700;
+}
+
+
+.card-controle .descricao-local {
+    color: #777;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+
+.card-controle .mensagem-contribuicao {
+    color: #8e4a70;
+    margin: 20px 0 30px;
+}
+
+
+.card-controle .mensagem-contribuicao span {
+    color: #777;
+    font-size: 14px;
+}
+
+.rodape {
+    text-align: center;
+    color: #272525;
+    font-size: 12px;
+    margin-top: 50px;
+    padding: 15px;
+    font-weight: 400;
+}
