@@ -2,34 +2,51 @@
 <?php
 
 session_start();
+
 include_once("./conexao.php");
 
 
-// ATUALIZAR QUANTIDADE
+/* =========================================
+   ATUALIZAR QUANTIDADE
+========================================= */
 
-if(isset($_POST['atualizar'])){
+if (isset($_POST['atualizar'])) {
 
-    $quantidade = $_POST['quantidade'];
+    $quantidade = (int) $_POST['quantidade'];
+
 
     $result_update = "
+
         UPDATE quantidade
+
         SET qt_primeiro = '$quantidade'
-        WHERE qt_primeiro IS NOT NULL
+
     ";
 
-    $resultado_update = mysqli_query($conn, $result_update);
 
-    if($resultado_update){
+    $resultado_update = mysqli_query(
+        $conn,
+        $result_update
+    );
 
-        echo "<script>
-            alert('Quantidade atualizada com sucesso!');
-        </script>";
 
-    }else{
+    if ($resultado_update) {
 
-        echo "<script>
-            alert('Erro ao atualizar!');
-        </script>";
+        header("Location: sucesso_admin.php");
+        exit;
+        
+
+    } else {
+
+        echo "
+
+            <script>
+
+                alert('Erro ao atualizar quantidade!');
+
+            </script>
+
+        ";
 
     }
 
@@ -37,97 +54,391 @@ if(isset($_POST['atualizar'])){
 
 ?>
 
+
 <!DOCTYPE html>
+
 <html lang="pt-br">
+
 
 <head>
 
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Controle Primeiro</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+
+    <title>Controle - 1º Andar</title>
+
+
+    <!-- BOOTSTRAP -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+
+    <!-- BOOTSTRAP ICONS -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    >
+
+
+    <!-- CSS DO PROJETO -->
+
+    <link
+        rel="stylesheet"
+        href="./css/style.css"
+    >
+
 
 </head>
 
+
 <body>
 
-<center>
 
-<h1>Controle Primeiro</h1>
-
-<br>
-
-<h3>Consulta</h3>
-
-<hr>
-
-<br>
+<div class="pagina">
 
 
-<?php
+    <!-- CABEÇALHO -->
 
-$result_quantidade = "SELECT qt_primeiro FROM quantidade";
+    <header class="cabecalho">
 
-$resultado = mysqli_query($conn, $result_quantidade);
-
-while($row_quantidade = mysqli_fetch_assoc($resultado)){
-
-    if($row_quantidade['qt_primeiro'] !== NULL){
-
-        echo "<table>";
-
-        echo "<tr>";
-
-        echo "<td><b>QUANTIDADE</b></td>";
-
-        echo "<td>: " . $row_quantidade['qt_primeiro'] . "</td>";
-
-        echo "</tr>";
-
-        echo "</table><br><hr>";
-
-    }
-
-}
-
-?>
+        <div class="container">
 
 
-<h3>Atualizar quantidade</h3>
+            <div class="cabecalho-conteudo">
 
 
-<form method="POST">
+                <div class="icone-flor">
 
-    <label>Nova quantidade:</label>
+                    🌸
 
-    <br><br>
-
-    <input
-        type="number"
-        name="quantidade"
-        min="0"
-        required
-    >
-
-    <br><br>
-
-    <button type="submit" name="atualizar">
-
-        ATUALIZAR
-
-    </button>
-
-</form>
+                </div>
 
 
-<br><br>
+                <div>
 
-<a href="admin.php">VOLTAR</a>
 
-</center>
+                    <h1>
+
+                        CONTROLE DE ABSORVENTES
+
+                    </h1>
+
+
+                    <p>
+
+                        Controle de quantidade — 1º Andar
+
+                    </p>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+    </header>
+
+
+
+    <!-- CONTEÚDO PRINCIPAL -->
+
+    <main class="container conteudo-principal">
+
+
+        <div class="painel-quantidades painel-controle">
+
+
+            <!-- TÍTULO -->
+
+            <div class="titulo-painel">
+
+
+                <span class="icone-caixa">
+
+                    🏢
+
+                </span>
+
+
+                <h2>
+
+                    CONTROLE DO 1º ANDAR
+
+                </h2>
+
+
+            </div>
+
+
+
+            <!-- ÁREA DA QUANTIDADE -->
+
+            <div class="row justify-content-center">
+
+
+                <div class="col-md-6">
+
+
+                    <div class="card-controle text-center">
+
+
+                        <!-- ÍCONE -->
+
+                        <div class="icone-local">
+
+
+                            <i class="bi bi-building"></i>
+
+
+                        </div>
+
+
+                        <!-- NOME -->
+
+                        <h3 class="nome-local">
+
+                            1º ANDAR
+
+                        </h3>
+
+
+                        <p class="descricao-local">
+
+                            Primeiro andar
+
+                        </p>
+
+
+
+                        <!-- CONSULTA -->
+
+                        <?php
+
+
+                        $result_quantidade = "
+
+                            SELECT qt_primeiro
+
+                            FROM quantidade
+
+                            LIMIT 1
+
+                        ";
+
+
+                        $resultado = mysqli_query(
+
+                            $conn,
+
+                            $result_quantidade
+
+                        );
+
+
+                        $row_quantidade = mysqli_fetch_assoc(
+
+                            $resultado
+
+                        );
+
+
+                        /*
+                        =========================================
+                        GARANTE QUE O CARD MOSTRE 0
+                        =========================================
+                        */
+
+                        $quantidade_primeiro = 0;
+
+
+                        if (
+
+                            $row_quantidade
+
+                            &&
+
+                            $row_quantidade['qt_primeiro'] !== NULL
+
+                        ) {
+
+                            $quantidade_primeiro =
+
+                                $row_quantidade['qt_primeiro'];
+
+                        }
+
+
+                        ?>
+
+
+                        <!-- QUANTIDADE -->
+
+                        <div class="quantidade-atual">
+
+                            <?php
+
+                            echo $quantidade_primeiro;
+
+                            ?>
+
+                        </div>
+
+
+                        <div class="label-disponivel">
+
+                            DISPONÍVEIS
+
+                        </div>
+
+
+
+                        <!-- LINHA -->
+
+                        <div class="linha-card"></div>
+
+
+
+                        <!-- FORMULÁRIO -->
+
+                        <form
+
+                            action="primeiro_cons.php"
+
+                            method="POST"
+
+                            class="form-controle"
+
+                        >
+
+
+                            <label
+
+                                for="quantidade"
+
+                                class="label-quantidade"
+
+                            >
+
+                                Nova quantidade
+
+                            </label>
+
+
+                            <div class="input-group input-retirada">
+
+
+                                <span class="input-group-text">
+
+                                    <i class="bi bi-box-seam"></i>
+
+                                </span>
+
+
+                                <input
+
+                                    type="number"
+
+                                    id="quantidade"
+
+                                    name="quantidade"
+
+                                    min="0"
+
+                                    required
+
+                                    class="form-control"
+
+                                    placeholder="Digite a nova quantidade"
+
+                                >
+
+
+                            </div>
+
+
+
+                            <!-- BOTÃO -->
+
+                            <button
+
+                                type="submit"
+
+                                name="atualizar"
+
+                                class="botao-excluir"
+
+                            >
+
+
+                                <i class="bi bi-arrow-repeat"></i>
+
+
+                                ATUALIZAR
+
+
+                            </button>
+
+
+                        </form>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- VOLTAR -->
+
+        <div class="area-administrador">
+
+
+            <a
+
+                href="admin.php"
+
+                class="botao-voltar"
+
+            >
+
+                <i class="bi bi-arrow-left"></i>
+
+                VOLTAR
+
+
+            </a>
+
+
+        </div>
+
+
+    </main>
+
+
+</div>
+
 
 </body>
 
+
 </html>
-```

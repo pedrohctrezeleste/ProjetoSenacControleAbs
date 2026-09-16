@@ -1,4 +1,3 @@
-
 <?php
 
 session_start();
@@ -7,45 +6,75 @@ include_once("./conexao.php");
 
 
 /* =========================================
-   ATUALIZAR QUANTIDADE
+   RETIRAR QUANTIDADE
 ========================================= */
 
-if (isset($_POST['atualizar'])) {
+if (isset($_POST['excluir'])) {
 
     $quantidade = (int) $_POST['quantidade'];
 
 
-    $result_update = "
+    /* =========================================
+       VERIFICA SE A QUANTIDADE É VÁLIDA
+    ========================================= */
+
+    if ($quantidade <= 0) {
+
+        header("Location: terceiro_del.php");
+        exit;
+
+    }
+
+
+    /* =========================================
+       RETIRA A QUANTIDADE
+    ========================================= */
+
+    $result_delete = "
 
         UPDATE quantidade
 
-        SET qt_segundo = '$quantidade'
+        SET qt_terceiro = qt_terceiro - $quantidade
+
+        WHERE qt_terceiro >= $quantidade
 
     ";
 
 
-    $resultado_update = mysqli_query(
+    $resultado_delete = mysqli_query(
         $conn,
-        $result_update
+        $result_delete
     );
 
 
-    if ($resultado_update) {
+    /* =========================================
+       VERIFICA SE A RETIRADA FOI REALIZADA
+    ========================================= */
 
-        header("Location: sucesso_admin.php");
+    if (
+        $resultado_delete
+        &&
+        mysqli_affected_rows($conn) > 0
+    ) {
+
+        /*
+         * Retirada realizada com sucesso.
+         * Redireciona para a página de confirmação.
+         */
+
+        header("Location: sucesso.php");
         exit;
-        
+
     } else {
 
-        echo "
+        /*
+         * A retirada não foi realizada.
+         * Isso pode acontecer quando a quantidade
+         * solicitada é maior que a disponível.
+         */
 
-            <script>
-
-                alert('Erro ao atualizar quantidade!');
-
-            </script>
-
-        ";
+        header("Location: terceiro_del.php?erro=quantidade");
+        exit;
 
     }
 
@@ -70,7 +99,7 @@ if (isset($_POST['atualizar'])) {
     >
 
 
-    <title>Controle - 2º Andar</title>
+    <title>Controle - Terceiro Andar</title>
 
 
     <!-- BOOTSTRAP -->
@@ -124,7 +153,6 @@ if (isset($_POST['atualizar'])) {
 
                 <div>
 
-
                     <h1>
 
                         CONTROLE DE ABSORVENTES
@@ -134,10 +162,9 @@ if (isset($_POST['atualizar'])) {
 
                     <p>
 
-                        Controle de quantidade — 2º Andar
+                        Retirada de absorventes — Terceiro andar
 
                     </p>
-
 
                 </div>
 
@@ -159,27 +186,27 @@ if (isset($_POST['atualizar'])) {
         <div class="painel-quantidades painel-controle">
 
 
-            <!-- TÍTULO -->
+            <!-- MENSAGEM DE ERRO -->
 
-            <div class="titulo-painel">
+            <?php if (isset($_GET['erro'])) { ?>
 
+                <div
+                    class="alert alert-danger text-center"
+                    role="alert"
+                >
 
-                <span class="icone-caixa">
+                    <i class="bi bi-exclamation-circle"></i>
 
-                    🏢
+                    Não foi possível realizar a retirada.
 
-                </span>
+                    <br>
 
+                    Verifique se a quantidade solicitada
+                    está disponível.
 
-                <h2>
+                </div>
 
-                    CONTROLE DO 2º ANDAR
-
-                </h2>
-
-
-            </div>
-
+            <?php } ?>
 
 
             <!-- ÁREA DA QUANTIDADE -->
@@ -197,9 +224,7 @@ if (isset($_POST['atualizar'])) {
 
                         <div class="icone-local">
 
-
                             <i class="bi bi-building"></i>
-
 
                         </div>
 
@@ -208,29 +233,30 @@ if (isset($_POST['atualizar'])) {
 
                         <h3 class="nome-local">
 
-                            2º ANDAR
+                            TERCEIRO ANDAR
 
                         </h3>
 
 
                         <p class="descricao-local">
 
-                            Segundo andar
+                            Controle de retirada de absorventes
 
                         </p>
 
 
 
-                        <!-- CONSULTA -->
+                        <!-- CONSULTA DA QUANTIDADE -->
 
                         <?php
 
-
                         $result_quantidade = "
 
-                            SELECT qt_segundo
+                            SELECT qt_terceiro
 
                             FROM quantidade
+
+                            WHERE qt_terceiro IS NOT NULL
 
                             LIMIT 1
 
@@ -238,69 +264,48 @@ if (isset($_POST['atualizar'])) {
 
 
                         $resultado = mysqli_query(
-
                             $conn,
-
                             $result_quantidade
-
                         );
 
 
                         $row_quantidade = mysqli_fetch_assoc(
-
                             $resultado
-
                         );
 
 
-                        /*
-                        =========================================
-                        GARANTE QUE O CARD MOSTRE 0
-                        =========================================
-                        */
-
-                        $quantidade_segundo = 0;
-
-
                         if (
-
                             $row_quantidade
-
                             &&
-
-                            $row_quantidade['qt_segundo'] !== NULL
-
+                            $row_quantidade['qt_terceiro'] !== NULL
                         ) {
-
-                            $quantidade_segundo =
-
-                                $row_quantidade['qt_segundo'];
-
-                        }
-
 
                         ?>
 
 
-                        <!-- QUANTIDADE -->
+                            <div class="quantidade-atual">
 
-                        <div class="quantidade-atual">
+                                <?php
 
-                            <?php
+                                echo $row_quantidade['qt_terceiro'];
 
-                            echo $quantidade_segundo;
+                                ?>
 
-                            ?>
-
-                        </div>
+                            </div>
 
 
-                        <div class="label-disponivel">
+                            <div class="label-disponivel">
 
-                            DISPONÍVEIS
+                                DISPONÍVEIS
 
-                        </div>
+                            </div>
 
+
+                        <?php
+
+                        }
+
+                        ?>
 
 
                         <!-- LINHA -->
@@ -312,25 +317,18 @@ if (isset($_POST['atualizar'])) {
                         <!-- FORMULÁRIO -->
 
                         <form
-
-                            action="segundo_cons.php"
-
+                            action="terceiro_del.php"
                             method="POST"
-
                             class="form-controle"
-
                         >
 
 
                             <label
-
                                 for="quantidade"
-
                                 class="label-quantidade"
-
                             >
 
-                                Nova quantidade
+                                Quantidade a retirar
 
                             </label>
 
@@ -340,27 +338,19 @@ if (isset($_POST['atualizar'])) {
 
                                 <span class="input-group-text">
 
-                                    <i class="bi bi-box-seam"></i>
+                                    <i class="bi bi-dash-circle"></i>
 
                                 </span>
 
 
                                 <input
-
                                     type="number"
-
                                     id="quantidade"
-
                                     name="quantidade"
-
-                                    min="0"
-
+                                    min="1"
                                     required
-
                                     class="form-control"
-
-                                    placeholder="Digite a nova quantidade"
-
+                                    placeholder="Digite a quantidade"
                                 >
 
 
@@ -368,24 +358,17 @@ if (isset($_POST['atualizar'])) {
 
 
 
-                            <!-- BOTÃO -->
+                            <!-- BOTÃO RETIRAR -->
 
                             <button
-
                                 type="submit"
-
-                                name="atualizar"
-
+                                name="excluir"
                                 class="botao-excluir"
-
                             >
 
+                                <i class="bi bi-trash3"></i>
 
-                                <i class="bi bi-arrow-repeat"></i>
-
-
-                                ATUALIZAR
-
+                                RETIRAR
 
                             </button>
 
@@ -412,16 +395,13 @@ if (isset($_POST['atualizar'])) {
 
 
             <a
-
-                href="admin.php"
-
+                href="home.php"
                 class="botao-voltar"
-
             >
 
                 <i class="bi bi-arrow-left"></i>
 
-                VOLTAR
+                VOLTAR AO PAINEL
 
 
             </a>

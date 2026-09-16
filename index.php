@@ -1,57 +1,203 @@
-<?php
-
-session_start();
-include_once("./conexao.php");
-
-?>
-
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Controle 
-    </title>
+
+    <title>Bem-vindo | Controle de Absorventes</title>
+
+
+    <!-- Bootstrap -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+
+    <!-- Bootstrap Icons -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    >
+
+
+    <!-- CSS -->
+
+    <link rel="stylesheet" href="css/style.css">
+
 </head>
-<body>
-    CONTROLE DE ESTOQUE <br><br>
-
-    <?php
-
-    $result_quantidade = "SELECT * FROM quantidade";
-    $resultado = mysqli_query($conn,$result_quantidade);
-    
-        while($row_quantidade = mysqli_fetch_assoc($resultado)){
-            echo "<table>";
-            echo "<tr><td><b>QUANTIDADE TÉRREO (PORTARIA)</b></td><td>: " . $row_quantidade['qt_terreo'] . "</td></tr>";
-            echo "<tr><td><b>QUANTIDADE PRIMEIRO ANDAR</b></td><td>: " . $row_quantidade['qt_primeiro'] . "</td></tr>";
-            echo "<tr><td><b>QUANTIDADE SEGUNDO ANDAR</b></td><td>: " . $row_quantidade['qt_segundo'] . "</td></tr>";
-            echo "<tr><td><b>QUANTIDADE TERCEIRO ANDAR</b></td><td>: " . $row_quantidade['qt_terceiro'] . "</td></tr>";
-            echo "</table><br><hr>";
-        }
-    
-    ?>
-    
 
 
-    SELECIONE O ANDAR: <br><br>
-
-    <a href="./terreo_cons.php">Térreo</a><br><br>
-
-    <a href="./primeiro_cons.php">Primeiro andar</a><br><br>
-
-    <a href="./segundo_cons.php">Segundo andar</a><br><br>
-
-    <a href="./terceiro_cons.php">Terceiro andar</a><br><br>
-
-    <br><br><a href="./loginadm.html">Login de Administrador</a>
+<body class="splash-body">
 
 
+    <!-- ==========================================
+         FORMAS DECORATIVAS DO FUNDO
+    =========================================== -->
+
+    <div class="forma forma-1"></div>
+
+    <div class="forma forma-2"></div>
+
+    <div class="forma forma-3"></div>
+
+    <div class="forma forma-4"></div>
+
+
+    <!-- ==========================================
+         CONTEÚDO
+    =========================================== -->
+
+    <main class="splash-container">
+
+
+        <!-- ======================================
+             LOGO SENAC
+        ======================================= -->
+
+        <div class="logo-senac">
+
+            <div class="logo-senac-text">
+
+                Senac
+
+            </div>
+
+        </div>
+
+
+        <!-- ======================================
+             CARD PRINCIPAL
+        ======================================= -->
+
+        <section class="splash-card">
+
+
+            <!-- FLOR -->
+
+            <div class="decoracao-titulo">
+
+                <span></span>
+
+                <div class="flor">
+
+                    <i class="bi bi-asterisk"></i>
+
+                </div>
+
+                <span></span>
+
+            </div>
+
+
+            <!-- TÍTULO -->
+
+            <h1>
+
+                Bem-vinda!
+
+            </h1>
 
 
 
-   
+
+            <!-- DESCRIÇÃO -->
+<p class="mensagem-contribuicao">
+    <strong>Cuidar também é compartilhar 💗</strong><br>
+    <span>
+        Retirou um absorvente? Contribua também!
+    </span><br>
+
+
+Este sistema foi criado para facilitar o acesso e <br>
+o controle de absorventes nos banheiros do SENAC. <br><br>
+
+Juntos, podemos tornar esse cuidado mais acessível para todas.
+</p>
+
+
+            <!-- LINHA -->
+
+            <div class="linha"></div>
+
+
+            <!-- STATUS -->
+
+            <div class="status-carregamento">
+
+                <span>
+
+                    Preparando o sistema...
+
+                </span>
+
+            </div>
+
+
+            <!-- ======================================
+                 BOLINHAS GIRANDO
+            ======================================= -->
+
+            <div class="loading-spinner">
+
+                <span></span>
+
+                <span></span>
+
+                <span></span>
+
+                <span></span>
+
+                <span></span>
+
+                <span></span>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- ======================================
+             RODAPÉ
+        ======================================= -->
+
+        <footer class="splash-footer">
+
+            <i class="bi bi-shield-check"></i>
+
+            <span>
+
+                 • SENAC
+
+            </span>
+
+        </footer>
+
+
+    </main>
+
+
+    <!-- ==========================================
+         JAVASCRIPT
+    =========================================== -->
+
+    <script>
+
+        setTimeout(function () {
+
+            window.location.href = "home.php";
+
+        }, 7000);
+
+    </script>
+
+
 </body>
+
 </html>

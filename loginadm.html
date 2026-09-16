@@ -6,106 +6,282 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Login Administrador</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-          rel="stylesheet">
+
+    <!-- BOOTSTRAP -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+
+    <!-- BOOTSTRAP ICONS -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    >
+
+
+    <!-- CSS DO PROJETO -->
+
+    <link
+        rel="stylesheet"
+        href="./css/style.css"
+    >
 
 </head>
 
-<body class="bg-light">
 
-<div class="container d-flex justify-content-center align-items-center min-vh-100">
+<body>
 
-    <div class="card shadow-lg border-0 rounded-4" style="max-width: 450px; width: 100%;">
 
-        <div class="card-body p-5">
+<div class="pagina">
 
-            <div class="text-center mb-4">
+<br><br>
 
-                <div class="display-4 mb-2">🔐</div>
 
-                <h1 class="fw-bold text-primary">
-                    Acesso do Administrador
-                </h1>
+    <!-- CONTEÚDO PRINCIPAL -->
 
-                <p class="text-muted">
-                    Entre com seus dados para continuar
-                </p>
+    <main class="container conteudo-principal">
+
+
+        <div class="painel-quantidades painel-controle">
+
+
+            <!-- TÍTULO -->
+
+            <div class="titulo-painel">
+
+                <span class="icone-caixa">
+
+                    <i class="bi bi-shield-lock"></i>
+
+                </span>
+
+
+                <h2>
+
+                    ACESSO DO ADMINISTRADOR
+
+                </h2>
 
             </div>
 
-            <form action="loginadm.php" method="POST">
 
-                <div class="mb-3">
 
-                    <label class="form-label fw-semibold">
-                        Usuário:
-                    </label>
+            <!-- CARD DE LOGIN -->
 
-                    <input type="text"
-                           name="nome"
-                           required
-                           class="form-control form-control-lg"
-                           placeholder="Digite seu usuário">
+            <div class="row justify-content-center">
 
-                </div>
 
-                <div class="mb-4">
+                <div class="col-md-6 col-lg-7">
 
-                    <label class="form-label fw-semibold">
-                        Senha:
-                    </label>
 
-                    <div class="input-group">
+                    <div class="card-controle text-center">
 
-                        <input type="password"
-                               name="senha"
-                               id="senha"
-                               required
-                               class="form-control form-control-lg"
-                               placeholder="Digite sua senha">
 
-                        <button type="button"
-                                class="btn btn-outline-secondary"
-                                onclick="mostrarSenha()"
-                                title="Mostrar senha">
+                        <!-- ÍCONE -->
 
-                            <span style="color: gray;">👁</span>
+                        <div class="icone-local">
 
-                        </button>
+                            <i class="bi bi-person-lock"></i>
+
+                        </div>
+
+
+                        <!-- TÍTULO -->
+
+                        <h3 class="nome-local">
+
+                            LOGIN
+
+                        </h3>
+
+
+                        <p class="descricao-local">
+
+                            Entre com seus dados para continuar
+
+                        </p>
+
+
+                        <!-- LINHA -->
+
+                        <div class="linha-card"></div>
+
+
+
+                        <!-- FORMULÁRIO -->
+
+                        <form
+                            action="loginadm.php"
+                            method="POST"
+                            class="form-controle"
+                        >
+
+
+                            <!-- USUÁRIO -->
+
+                            <div class="text-start mb-3">
+
+
+                                <label
+                                    for="nome"
+                                    class="label-quantidade"
+                                >
+
+                                    Usuário
+
+                                </label>
+
+
+                                <div class="input-group input-retirada">
+
+
+                                    <span class="input-group-text">
+
+                                        <i class="bi bi-person"></i>
+
+                                    </span>
+
+
+                                    <input
+                                        type="text"
+                                        id="nome"
+                                        name="nome"
+                                        required
+                                        class="form-control"
+                                        placeholder="Digite seu usuário"
+                                    >
+
+
+                                </div>
+
+
+                            </div>
+
+
+
+                            <!-- SENHA -->
+
+                            <div class="text-start mb-4">
+
+
+                                <label
+                                    for="senha"
+                                    class="label-quantidade"
+                                >
+
+                                    Senha
+
+                                </label>
+
+
+                                <div class="input-group input-retirada">
+
+
+                                    <span class="input-group-text">
+
+                                        <i class="bi bi-lock"></i>
+
+                                    </span>
+
+
+                                    <input
+                                        type="password"
+                                        name="senha"
+                                        id="senha"
+                                        required
+                                        class="form-control"
+                                        placeholder="Digite sua senha"
+                                    >
+
+
+                                    <button
+                                        type="button"
+                                        class="btn btn-outline-secondary"
+                                        onclick="mostrarSenha()"
+                                        title="Mostrar senha"
+                                    >
+
+                                        <i
+                                            id="iconeSenha"
+                                            class="bi bi-eye"
+                                        ></i>
+
+                                    </button>
+
+
+                                </div>
+
+
+                            </div>
+
+
+
+                            <!-- BOTÃO ENTRAR -->
+
+                            <button
+                                type="submit"
+                                class="botao-excluir w-100"
+                            >
+
+                                <i class="bi bi-box-arrow-in-right"></i>
+
+                                ENTRAR
+
+                            </button>
+
+
+                        </form>
+
 
                     </div>
 
-                </div>
-
-                <div class="d-grid">
-
-                    <button type="submit"
-                            class="btn btn-primary btn-lg rounded-3">
-                        ENTRAR
-                    </button>
 
                 </div>
 
-            </form>
-
-            <div class="text-center mt-4">
-
-                <a href="index.php"
-                   class="btn btn-outline-secondary rounded-3">
-                    ← VOLTAR
-                </a>
 
             </div>
 
+
         </div>
 
-    </div>
+
+
+        <!-- VOLTAR -->
+
+        <div class="area-administrador">
+
+
+            <a
+                href="index.php"
+                class="botao-voltar"
+            >
+
+                <i class="bi bi-arrow-left"></i>
+
+                VOLTAR AO PAINEL
+
+            </a>
+
+
+        </div>
+
+
+    </main>
+
 
 </div>
+
 
 
 <script>
@@ -114,19 +290,27 @@ function mostrarSenha() {
 
     const senha = document.getElementById("senha");
 
+    const icone = document.getElementById("iconeSenha");
+
+
     if (senha.type === "password") {
 
         senha.type = "text";
 
+        icone.className = "bi bi-eye-slash";
+
     } else {
 
         senha.type = "password";
+
+        icone.className = "bi bi-eye";
 
     }
 
 }
 
 </script>
+
 
 </body>
 
