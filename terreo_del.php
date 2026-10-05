@@ -1,3 +1,4 @@
+```php
 <?php
 
 session_start();
@@ -27,6 +28,74 @@ if (isset($_POST['excluir'])) {
 
 
     /* =========================================
+       CONSULTA A QUANTIDADE ATUAL
+    ========================================= */
+
+    $consulta = "
+
+        SELECT qt_terreo
+
+        FROM quantidade
+
+        LIMIT 1
+
+    ";
+
+
+    $resultado_consulta = mysqli_query(
+        $conn,
+        $consulta
+    );
+
+
+    $dados = mysqli_fetch_assoc(
+        $resultado_consulta
+    );
+
+
+    if (!$dados) {
+
+        header(
+            "Location: terreo_del.php?erro=quantidade"
+        );
+
+        exit;
+
+    }
+
+
+    /* =========================================
+       GUARDA A QUANTIDADE ANTERIOR
+    ========================================= */
+
+    $quantidade_anterior =
+        (int) $dados['qt_terreo'];
+
+
+    /* =========================================
+       VERIFICA SE HÁ QUANTIDADE DISPONÍVEL
+    ========================================= */
+
+    if ($quantidade > $quantidade_anterior) {
+
+        header(
+            "Location: terreo_del.php?erro=quantidade"
+        );
+
+        exit;
+
+    }
+
+
+    /* =========================================
+       CALCULA A NOVA QUANTIDADE
+    ========================================= */
+
+    $quantidade_nova =
+        $quantidade_anterior - $quantidade;
+
+
+    /* =========================================
        RETIRA A QUANTIDADE
     ========================================= */
 
@@ -34,9 +103,9 @@ if (isset($_POST['excluir'])) {
 
         UPDATE quantidade
 
-        SET qt_terreo = qt_terreo - $quantidade
+        SET qt_terreo = $quantidade_nova
 
-        WHERE qt_terreo >= $quantidade
+        WHERE qt_terreo = $quantidade_anterior
 
     ";
 
@@ -57,23 +126,58 @@ if (isset($_POST['excluir'])) {
         mysqli_affected_rows($conn) > 0
     ) {
 
-        /*
-         * Retirada realizada com sucesso.
-         * Envia o usuário para a página de confirmação.
-         */
+
+        /* =========================================
+           REGISTRA NO HISTÓRICO
+        ========================================= */
+
+        $historico = "
+
+            INSERT INTO historico
+            (
+                andar,
+                quantidade_anterior,
+                quantidade_nova,
+                acao
+            )
+
+            VALUES
+            (
+                'Térreo',
+                $quantidade_anterior,
+                $quantidade_nova,
+                'Retirada'
+            )
+
+        ";
+
+
+        mysqli_query(
+            $conn,
+            $historico
+        );
+
+
+        /* =========================================
+           ENVIA PARA PÁGINA DE SUCESSO
+        ========================================= */
 
         header("Location: sucesso.php");
+
         exit;
+
 
     } else {
 
-        /*
-         * Não foi possível retirar.
-         * Provavelmente a quantidade solicitada
-         * é maior que a quantidade disponível.
-         */
 
-        header("Location: terreo_del.php?erro=quantidade");
+        /* =========================================
+           ERRO NA RETIRADA
+        ========================================= */
+
+        header(
+            "Location: terreo_del.php?erro=quantidade"
+        );
+
         exit;
 
     }
@@ -93,7 +197,6 @@ if (isset($_POST['excluir'])) {
     <meta charset="UTF-8">
 
 
-    
     <meta
         name="viewport"
         content="width=device-width, initial-scale=1.0"
@@ -136,7 +239,9 @@ if (isset($_POST['excluir'])) {
 <div class="pagina">
 
 
-    <!-- CABEÇALHO -->
+    <!-- =========================================
+         CABEÇALHO
+    ========================================= -->
 
     <header class="cabecalho">
 
@@ -178,7 +283,9 @@ if (isset($_POST['excluir'])) {
 
 
 
-    <!-- CONTEÚDO PRINCIPAL -->
+    <!-- =========================================
+         CONTEÚDO PRINCIPAL
+    ========================================= -->
 
     <main class="container conteudo-principal">
 
@@ -186,7 +293,9 @@ if (isset($_POST['excluir'])) {
         <div class="painel-quantidades painel-controle">
 
 
-            <!-- MENSAGEM DE ERRO -->
+            <!-- =========================================
+                 MENSAGEM DE ERRO
+            ========================================= -->
 
             <?php if (isset($_GET['erro'])) { ?>
 
@@ -210,7 +319,9 @@ if (isset($_POST['excluir'])) {
 
 
 
-            <!-- ÁREA DA QUANTIDADE -->
+            <!-- =========================================
+                 ÁREA DA QUANTIDADE
+            ========================================= -->
 
             <div class="row justify-content-center">
 
@@ -247,7 +358,9 @@ if (isset($_POST['excluir'])) {
 
 
 
-                        <!-- CONSULTA DA QUANTIDADE -->
+                        <!-- =========================================
+                             CONSULTA DA QUANTIDADE
+                        ========================================= -->
 
                         <?php
 
@@ -314,7 +427,9 @@ if (isset($_POST['excluir'])) {
 
 
 
-                        <!-- FORMULÁRIO -->
+                        <!-- =========================================
+                             FORMULÁRIO
+                        ========================================= -->
 
                         <form
                             action="terreo_del.php"
@@ -389,7 +504,9 @@ if (isset($_POST['excluir'])) {
 
 
 
-        <!-- VOLTAR -->
+        <!-- =========================================
+             VOLTAR
+        ========================================= -->
 
         <div class="area-administrador">
 
@@ -418,3 +535,4 @@ if (isset($_POST['excluir'])) {
 </body>
 
 </html>
+```

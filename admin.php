@@ -311,7 +311,7 @@ include_once("conexao.php");
             ?>
 
 
-        </div><br><br><br>
+        </div>
 
 
 
@@ -320,6 +320,17 @@ include_once("conexao.php");
         <div class="area-administrador">
 
 
+         <a
+                href="./historico.php"
+                class="botao-administrador"
+            >
+
+                <i class="bi bi-search"></i>
+
+                HISTÓRICO
+
+            </a><br><br>
+
             <a
                 href="./home.php"
                 class="botao-administrador"
@@ -327,7 +338,7 @@ include_once("conexao.php");
 
                 <i class="bi bi-house"></i>
 
-                PÁGINA INICIAL
+                SAIR
 
             </a><br><br><br>
 

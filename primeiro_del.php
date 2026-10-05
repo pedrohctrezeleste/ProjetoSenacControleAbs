@@ -1,3 +1,4 @@
+
 <?php
 
 session_start();
@@ -27,16 +28,82 @@ if (isset($_POST['excluir'])) {
 
 
     /* =========================================
-       RETIRA A QUANTIDADE
+       CONSULTA QUANTIDADE ATUAL
+    ========================================= */
+
+    $consulta_atual = "
+
+        SELECT qt_primeiro
+
+        FROM quantidade
+
+        LIMIT 1
+
+    ";
+
+
+    $resultado_atual = mysqli_query(
+        $conn,
+        $consulta_atual
+    );
+
+
+    $dados_atual = mysqli_fetch_assoc(
+        $resultado_atual
+    );
+
+
+    /* =========================================
+       VERIFICA SE EXISTE REGISTRO
+    ========================================= */
+
+    if (!$dados_atual) {
+
+        header("Location: primeiro_del.php?erro=quantidade");
+        exit;
+
+    }
+
+
+    /* =========================================
+       QUANTIDADE ANTERIOR
+    ========================================= */
+
+    $quantidade_anterior =
+        (int) $dados_atual['qt_primeiro'];
+
+
+    /* =========================================
+       VERIFICA SE POSSUI QUANTIDADE SUFICIENTE
+    ========================================= */
+
+    if ($quantidade > $quantidade_anterior) {
+
+        header("Location: primeiro_del.php?erro=quantidade");
+        exit;
+
+    }
+
+
+    /* =========================================
+       CALCULA NOVA QUANTIDADE
+    ========================================= */
+
+    $quantidade_nova =
+        $quantidade_anterior - $quantidade;
+
+
+    /* =========================================
+       ATUALIZA A QUANTIDADE
     ========================================= */
 
     $result_delete = "
 
         UPDATE quantidade
 
-        SET qt_primeiro = qt_primeiro - $quantidade
+        SET qt_primeiro = $quantidade_nova
 
-        WHERE qt_primeiro >= $quantidade
+        WHERE qt_primeiro = $quantidade_anterior
 
     ";
 
@@ -48,7 +115,7 @@ if (isset($_POST['excluir'])) {
 
 
     /* =========================================
-       VERIFICA SE A RETIRADA FOI REALIZADA
+       REGISTRA NO HISTÓRICO
     ========================================= */
 
     if (
@@ -57,21 +124,41 @@ if (isset($_POST['excluir'])) {
         mysqli_affected_rows($conn) > 0
     ) {
 
-        /*
-         * Retirada realizada com sucesso.
-         * Redireciona para a página de confirmação.
-         */
+        $historico = "
+
+            INSERT INTO historico
+            (
+                andar,
+                quantidade_anterior,
+                quantidade_nova,
+                acao
+            )
+
+            VALUES
+            (
+                '1º Andar',
+                $quantidade_anterior,
+                $quantidade_nova,
+                'Retirada'
+            )
+
+        ";
+
+
+        mysqli_query(
+            $conn,
+            $historico
+        );
+
+
+        /* =========================================
+           REDIRECIONA PARA SUCESSO
+        ========================================= */
 
         header("Location: sucesso.php");
         exit;
 
     } else {
-
-        /*
-         * A retirada não foi realizada.
-         * Isso pode acontecer quando a quantidade
-         * solicitada é maior que a disponível.
-         */
 
         header("Location: primeiro_del.php?erro=quantidade");
         exit;
@@ -256,8 +343,6 @@ if (isset($_POST['excluir'])) {
 
                             FROM quantidade
 
-                            WHERE qt_primeiro IS NOT NULL
-
                             LIMIT 1
 
                         ";
@@ -274,38 +359,39 @@ if (isset($_POST['excluir'])) {
                         );
 
 
+                        $quantidade_primeiro = 0;
+
+
                         if (
                             $row_quantidade
                             &&
                             $row_quantidade['qt_primeiro'] !== NULL
                         ) {
 
-                        ?>
-
-
-                            <div class="quantidade-atual">
-
-                                <?php
-
-                                echo $row_quantidade['qt_primeiro'];
-
-                                ?>
-
-                            </div>
-
-
-                            <div class="label-disponivel">
-
-                                DISPONÍVEIS
-
-                            </div>
-
-
-                        <?php
+                            $quantidade_primeiro =
+                                $row_quantidade['qt_primeiro'];
 
                         }
 
                         ?>
+
+
+                        <div class="quantidade-atual">
+
+                            <?php
+
+                            echo $quantidade_primeiro;
+
+                            ?>
+
+                        </div>
+
+
+                        <div class="label-disponivel">
+
+                            DISPONÍVEIS
+
+                        </div>
 
 
                         <!-- LINHA -->

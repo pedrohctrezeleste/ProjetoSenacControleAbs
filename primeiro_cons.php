@@ -15,11 +15,74 @@ if (isset($_POST['atualizar'])) {
     $quantidade = (int) $_POST['quantidade'];
 
 
+    /* =========================================
+       CONSULTA QUANTIDADE ATUAL
+    ========================================= */
+
+    $consulta_atual = "
+
+        SELECT qt_primeiro
+
+        FROM quantidade
+
+        LIMIT 1
+
+    ";
+
+
+    $resultado_atual = mysqli_query(
+        $conn,
+        $consulta_atual
+    );
+
+
+    $dados_atual = mysqli_fetch_assoc(
+        $resultado_atual
+    );
+
+
+    /* =========================================
+       VERIFICA SE EXISTE REGISTRO
+    ========================================= */
+
+    if (!$dados_atual) {
+
+        echo "
+
+            <script>
+
+                alert('Não foi possível localizar a quantidade atual!');
+
+                window.location.href = 'primeiro_cons.php';
+
+            </script>
+
+        ";
+
+        exit;
+
+    }
+
+
+    /* =========================================
+       QUANTIDADE ANTERIOR
+    ========================================= */
+
+    $quantidade_anterior =
+        (int) $dados_atual['qt_primeiro'];
+
+
+    /* =========================================
+       ATUALIZA QUANTIDADE
+    ========================================= */
+
     $result_update = "
 
         UPDATE quantidade
 
-        SET qt_primeiro = '$quantidade'
+        SET qt_primeiro = $quantidade
+
+        WHERE qt_primeiro = $quantidade_anterior
 
     ";
 
@@ -30,11 +93,43 @@ if (isset($_POST['atualizar'])) {
     );
 
 
+    /* =========================================
+       REGISTRA NO HISTÓRICO
+    ========================================= */
+
     if ($resultado_update) {
 
+        $historico = "
+
+            INSERT INTO historico
+            (
+                andar,
+                quantidade_anterior,
+                quantidade_nova,
+                acao
+            )
+
+            VALUES
+            (
+                '1º Andar',
+                $quantidade_anterior,
+                $quantidade,
+                'Atualização'
+            )
+
+        ";
+
+
+        mysqli_query(
+            $conn,
+            $historico
+        );
+
+
         header("Location: sucesso_admin.php");
+
         exit;
-        
+
 
     } else {
 
@@ -71,7 +166,7 @@ if (isset($_POST['atualizar'])) {
     >
 
 
-    <title>Controle - 1º Andar</title>
+    <title>Controle - Primeiro Andar</title>
 
 
     <!-- BOOTSTRAP -->
@@ -96,7 +191,6 @@ if (isset($_POST['atualizar'])) {
         rel="stylesheet"
         href="./css/style.css"
     >
-
 
 </head>
 
@@ -199,9 +293,7 @@ if (isset($_POST['atualizar'])) {
 
                         <div class="icone-local">
 
-
                             <i class="bi bi-building"></i>
-
 
                         </div>
 
@@ -227,7 +319,6 @@ if (isset($_POST['atualizar'])) {
 
                         <?php
 
-
                         $result_quantidade = "
 
                             SELECT qt_primeiro
@@ -240,46 +331,30 @@ if (isset($_POST['atualizar'])) {
 
 
                         $resultado = mysqli_query(
-
                             $conn,
-
                             $result_quantidade
-
                         );
 
 
-                        $row_quantidade = mysqli_fetch_assoc(
+                        $row_quantidade =
+                            mysqli_fetch_assoc(
+                                $resultado
+                            );
 
-                            $resultado
-
-                        );
-
-
-                        /*
-                        =========================================
-                        GARANTE QUE O CARD MOSTRE 0
-                        =========================================
-                        */
 
                         $quantidade_primeiro = 0;
 
 
                         if (
-
                             $row_quantidade
-
                             &&
-
                             $row_quantidade['qt_primeiro'] !== NULL
-
                         ) {
 
                             $quantidade_primeiro =
-
                                 $row_quantidade['qt_primeiro'];
 
                         }
-
 
                         ?>
 
@@ -314,22 +389,15 @@ if (isset($_POST['atualizar'])) {
                         <!-- FORMULÁRIO -->
 
                         <form
-
                             action="primeiro_cons.php"
-
                             method="POST"
-
                             class="form-controle"
-
                         >
 
 
                             <label
-
                                 for="quantidade"
-
                                 class="label-quantidade"
-
                             >
 
                                 Nova quantidade
@@ -348,21 +416,13 @@ if (isset($_POST['atualizar'])) {
 
 
                                 <input
-
                                     type="number"
-
                                     id="quantidade"
-
                                     name="quantidade"
-
                                     min="0"
-
                                     required
-
                                     class="form-control"
-
                                     placeholder="Digite a nova quantidade"
-
                                 >
 
 
@@ -373,21 +433,14 @@ if (isset($_POST['atualizar'])) {
                             <!-- BOTÃO -->
 
                             <button
-
                                 type="submit"
-
                                 name="atualizar"
-
                                 class="botao-excluir"
-
                             >
-
 
                                 <i class="bi bi-arrow-repeat"></i>
 
-
                                 ATUALIZAR
-
 
                             </button>
 
@@ -414,11 +467,8 @@ if (isset($_POST['atualizar'])) {
 
 
             <a
-
                 href="admin.php"
-
                 class="botao-voltar"
-
             >
 
                 <i class="bi bi-arrow-left"></i>

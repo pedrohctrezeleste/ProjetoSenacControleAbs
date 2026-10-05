@@ -355,7 +355,7 @@ Cada contribuição ajuda a manter esse recurso disponível para todas. 💗
 
                 🔐 ACESSO DO ADMINISTRADOR
 
-            </a><br>
+            </a><br><br><br>
             <footer class="rodape">
     © Desenvolvido por Pedro Gaspar
 </footer>

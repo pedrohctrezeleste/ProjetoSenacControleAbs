@@ -1,3 +1,4 @@
+
 <?php
 
 session_start();
@@ -6,29 +7,147 @@ include_once("./conexao.php");
 
 
 
+// =========================================
 // ATUALIZAR QUANTIDADE
+// =========================================
 
 if(isset($_POST['atualizar'])){
 
     $quantidade = (int) $_POST['quantidade'];
 
+
+    // =========================================
+    // IMPEDIR VALOR NEGATIVO
+    // =========================================
+
+    if($quantidade < 0){
+
+        header("Location: terreo_cons.php?erro=quantidade");
+        exit;
+
+    }
+
+
+
+    // =========================================
+    // CONSULTAR QUANTIDADE ATUAL
+    // =========================================
+
+    $consulta_atual = "
+
+        SELECT qt_terreo
+
+        FROM quantidade
+
+        LIMIT 1
+
+    ";
+
+
+    $resultado_atual = mysqli_query(
+        $conn,
+        $consulta_atual
+    );
+
+
+    $dados_atual = mysqli_fetch_assoc(
+        $resultado_atual
+    );
+
+
+    // =========================================
+    // VERIFICAR SE EXISTE REGISTRO
+    // =========================================
+
+    if(!$dados_atual){
+
+        header("Location: terreo_cons.php?erro=quantidade");
+        exit;
+
+    }
+
+
+
+    // =========================================
+    // GUARDAR QUANTIDADE ANTERIOR
+    // =========================================
+
+    $quantidade_anterior =
+        (int) $dados_atual['qt_terreo'];
+
+
+
+    // =========================================
+    // NOVA QUANTIDADE
+    // =========================================
+
+    $quantidade_nova = $quantidade;
+
+
+
+    // =========================================
+    // ATUALIZAR NO BANCO
+    // =========================================
+
     $result_update = "
 
         UPDATE quantidade
 
-        SET qt_terreo = '$quantidade'
+        SET qt_terreo = $quantidade_nova
 
-        WHERE qt_terreo IS NOT NULL
+        WHERE qt_terreo = $quantidade_anterior
 
     ";
 
-    $resultado_update = mysqli_query($conn, $result_update);
+
+    $resultado_update = mysqli_query(
+        $conn,
+        $result_update
+    );
+
+
+
+    // =========================================
+    // REGISTRAR NO HISTÓRICO
+    // =========================================
 
     if($resultado_update){
 
+        $historico = "
+
+            INSERT INTO historico
+            (
+                andar,
+                quantidade_anterior,
+                quantidade_nova,
+                acao
+            )
+
+            VALUES
+            (
+                'Térreo',
+                $quantidade_anterior,
+                $quantidade_nova,
+                'Atualização'
+            )
+
+        ";
+
+
+        mysqli_query(
+            $conn,
+            $historico
+        );
+
+
+        // =========================================
+        // REDIRECIONAR PARA SUCESSO
+        // =========================================
+
         header("Location: sucesso_admin.php");
+
         exit;
-        
+
 
     }else{
 
@@ -43,6 +162,8 @@ if(isset($_POST['atualizar'])){
 }
 
 ?>
+
+
 
 <!DOCTYPE html>
 
@@ -60,7 +181,10 @@ if(isset($_POST['atualizar'])){
     <title>Controle - Térreo</title>
 
 
-    <!-- BOOTSTRAP -->
+
+    <!-- =========================================
+         BOOTSTRAP
+    ========================================= -->
 
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
@@ -68,7 +192,10 @@ if(isset($_POST['atualizar'])){
     >
 
 
-    <!-- BOOTSTRAP ICONS -->
+
+    <!-- =========================================
+         BOOTSTRAP ICONS
+    ========================================= -->
 
     <link
         rel="stylesheet"
@@ -76,7 +203,10 @@ if(isset($_POST['atualizar'])){
     >
 
 
-    <!-- CSS DO PROJETO -->
+
+    <!-- =========================================
+         CSS DO PROJETO
+    ========================================= -->
 
     <link
         rel="stylesheet"
@@ -86,13 +216,18 @@ if(isset($_POST['atualizar'])){
 </head>
 
 
+
 <body>
+
 
 
 <div class="pagina">
 
 
-    <!-- CABEÇALHO -->
+
+    <!-- =========================================
+         CABEÇALHO
+    ========================================= -->
 
     <header class="cabecalho">
 
@@ -100,11 +235,13 @@ if(isset($_POST['atualizar'])){
 
             <div class="cabecalho-conteudo">
 
+
                 <div class="icone-flor">
 
                     🌸
 
                 </div>
+
 
                 <div>
 
@@ -114,6 +251,7 @@ if(isset($_POST['atualizar'])){
 
                     </h1>
 
+
                     <p>
 
                         Controle de quantidade — Térreo
@@ -121,6 +259,7 @@ if(isset($_POST['atualizar'])){
                     </p>
 
                 </div>
+
 
             </div>
 
@@ -130,15 +269,21 @@ if(isset($_POST['atualizar'])){
 
 
 
-    <!-- CONTEÚDO PRINCIPAL -->
+    <!-- =========================================
+         CONTEÚDO PRINCIPAL
+    ========================================= -->
 
     <main class="container conteudo-principal">
+
 
 
         <div class="painel-quantidades painel-controle">
 
 
-            <!-- TÍTULO -->
+
+            <!-- =========================================
+                 TÍTULO
+            ========================================= -->
 
             <div class="titulo-painel">
 
@@ -147,6 +292,7 @@ if(isset($_POST['atualizar'])){
                     🏢
 
                 </span>
+
 
                 <h2>
 
@@ -158,7 +304,9 @@ if(isset($_POST['atualizar'])){
 
 
 
-            <!-- CONSULTA DA QUANTIDADE -->
+            <!-- =========================================
+                 CONSULTA DA QUANTIDADE
+            ========================================= -->
 
             <?php
 
@@ -172,9 +320,17 @@ if(isset($_POST['atualizar'])){
 
             ";
 
-            $resultado = mysqli_query($conn, $result_quantidade);
 
-            $row_quantidade = mysqli_fetch_assoc($resultado);
+            $resultado = mysqli_query(
+                $conn,
+                $result_quantidade
+            );
+
+
+            $row_quantidade = mysqli_fetch_assoc(
+                $resultado
+            );
+
 
 
             /*
@@ -186,23 +342,35 @@ if(isset($_POST['atualizar'])){
             $quantidade_terreo = 0;
 
 
-            if($row_quantidade && $row_quantidade['qt_terreo'] !== NULL){
 
-                $quantidade_terreo = $row_quantidade['qt_terreo'];
+            if(
+                $row_quantidade
+                &&
+                $row_quantidade['qt_terreo'] !== NULL
+            ){
+
+                $quantidade_terreo =
+                    $row_quantidade['qt_terreo'];
 
             }
 
             ?>
 
 
+
             <div class="row justify-content-center">
 
+
                 <div class="col-md-6">
+
 
                     <div class="card-controle text-center">
 
 
-                        <!-- ÍCONE -->
+
+                        <!-- =====================================
+                             ÍCONE
+                        ====================================== -->
 
                         <div class="icone-local">
 
@@ -211,13 +379,17 @@ if(isset($_POST['atualizar'])){
                         </div>
 
 
-                        <!-- NOME -->
+
+                        <!-- =====================================
+                             NOME
+                        ====================================== -->
 
                         <h3 class="nome-local">
 
                             TÉRREO
 
                         </h3>
+
 
 
                         <p class="descricao-local">
@@ -227,7 +399,10 @@ if(isset($_POST['atualizar'])){
                         </p>
 
 
-                        <!-- QUANTIDADE -->
+
+                        <!-- =====================================
+                             QUANTIDADE
+                        ====================================== -->
 
                         <div class="quantidade-atual">
 
@@ -240,6 +415,7 @@ if(isset($_POST['atualizar'])){
                         </div>
 
 
+
                         <div class="label-disponivel">
 
                             DISPONÍVEIS
@@ -247,18 +423,26 @@ if(isset($_POST['atualizar'])){
                         </div>
 
 
-                        <!-- LINHA -->
+
+                        <!-- =====================================
+                             LINHA
+                        ====================================== -->
 
                         <div class="linha-card"></div>
 
 
-                        <!-- FORMULÁRIO -->
+
+                        <!-- =====================================
+                             FORMULÁRIO
+                        ====================================== -->
 
                         <form
                             action="terreo_cons.php"
                             method="POST"
                             class="form-controle"
                         >
+
+
 
                             <label
                                 for="quantidade"
@@ -270,13 +454,22 @@ if(isset($_POST['atualizar'])){
                             </label>
 
 
-                            <div class="input-group input-retirada">
 
-                                <span class="input-group-text">
+                            <div
+                                class="input-group input-retirada"
+                            >
 
-                                    <i class="bi bi-box-seam"></i>
+
+                                <span
+                                    class="input-group-text"
+                                >
+
+                                    <i
+                                        class="bi bi-box-seam"
+                                    ></i>
 
                                 </span>
+
 
 
                                 <input
@@ -289,10 +482,14 @@ if(isset($_POST['atualizar'])){
                                     placeholder="Digite a nova quantidade"
                                 >
 
+
                             </div>
 
 
-                            <!-- BOTÃO -->
+
+                            <!-- =====================================
+                                 BOTÃO
+                            ====================================== -->
 
                             <button
                                 type="submit"
@@ -300,14 +497,18 @@ if(isset($_POST['atualizar'])){
                                 class="botao-excluir"
                             >
 
-                                <i class="bi bi-arrow-repeat"></i>
+                                <i
+                                    class="bi bi-arrow-repeat"
+                                ></i>
 
                                 ATUALIZAR
 
                             </button>
 
 
+
                         </form>
+
 
 
                     </div>
@@ -317,13 +518,17 @@ if(isset($_POST['atualizar'])){
             </div>
 
 
+
         </div>
 
 
 
-        <!-- VOLTAR -->
+        <!-- =========================================
+             VOLTAR
+        ========================================= -->
 
         <div class="area-administrador">
+
 
             <a
                 href="admin.php"
@@ -336,13 +541,17 @@ if(isset($_POST['atualizar'])){
 
             </a>
 
+
         </div>
+
 
 
     </main>
 
 
+
 </div>
+
 
 
 </body>
